@@ -1,7 +1,12 @@
-import './styles/normalize.css';
-import './styles/index.css';
-import './requests/products';
-import { getProducts, getProductsById, addProduct } from './requests/products';
+import "./styles/normalize.css";
+import "./styles/index.css";
+import "./requests/products";
+import {
+  getProducts,
+  getProductsById,
+  addProduct,
+  deleteProductById,
+} from "./requests/products";
 
 // const allProductsEl = document.querySelector("#allProducts");
 
@@ -46,24 +51,41 @@ import { getProducts, getProductsById, addProduct } from './requests/products';
 //   singleProductCard.innerHTML = markup;
 // }
 
-const newProductFormEl = document.querySelector('#newProductForm');
-const newProductSectionEl = document.querySelector('#newProductSection');
-newProductFormEl.addEventListener('submit', addNewProduct);
+// const newProductFormEl = document.querySelector('#newProductForm');
+// const newProductSectionEl = document.querySelector('#newProductSection');
+// newProductFormEl.addEventListener('submit', addNewProduct);
 
-async function addNewProduct(e) {
+// async function addNewProduct(e) {
+//   e.preventDefault();
+//   const title = e.target.title.value;
+//   const description = e.target.description.value;
+//   const price = e.target.price.value;
+//   const { data: newProduct } = await addProduct({ title, description, price });
+//   console.log(newProduct);
+
+//   const markup = `
+//           <h2 class="title">${newProduct.title}</h2>
+//           <p class="price">${newProduct.price}</p>
+//           <p class="description">${newProduct.description}</p>
+//         `;
+
+//   newProductSectionEl.innerHTML = markup;
+//   e.target.reset();
+// }
+
+const deletionProductFormEl = document.querySelector("#deletionProductForm");
+deletionProductFormEl.addEventListener("submit", onDeletionProductFormSubmit);
+
+async function onDeletionProductFormSubmit(e) {
   e.preventDefault();
-  const title = e.target.title.value;
-  const description = e.target.description.value;
-  const price = e.target.price.value;
-  const { data: newProduct } = await addProduct({ title, description, price });
-  console.log(newProduct);
-
-  const markup = `
-          <h2 class="title">${newProduct.title}</h2>
-          <p class="price">${newProduct.price}</p>
-          <p class="description">${newProduct.description}</p>
-        `;
-
-  newProductSectionEl.innerHTML = markup;
-  e.target.reset();
+  const productId = e.target.deletionId.value;
+  await deleteProductById(productId)
+    .then(({ data }) => {
+      if (data.isDeleted === true) {
+        alert(
+          `Product ${data.title} was successfully deleted on ${data.deletedOn}`
+        );
+      }
+    })
+    .catch((error) => console.log(error.message));
 }
