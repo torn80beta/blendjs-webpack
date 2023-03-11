@@ -7,6 +7,7 @@ import {
   addProduct,
   deleteProductById,
 } from "./requests/products";
+import { getAllUsers } from "./requests/users";
 
 // const allProductsEl = document.querySelector("#allProducts");
 
@@ -73,19 +74,40 @@ import {
 //   e.target.reset();
 // }
 
-const deletionProductFormEl = document.querySelector("#deletionProductForm");
-deletionProductFormEl.addEventListener("submit", onDeletionProductFormSubmit);
+// const deletionProductFormEl = document.querySelector("#deletionProductForm");
+// deletionProductFormEl.addEventListener("submit", onDeletionProductFormSubmit);
 
-async function onDeletionProductFormSubmit(e) {
-  e.preventDefault();
-  const productId = e.target.deletionId.value;
-  await deleteProductById(productId)
-    .then(({ data }) => {
-      if (data.isDeleted === true) {
-        alert(
-          `Product ${data.title} was successfully deleted on ${data.deletedOn}`
-        );
-      }
-    })
-    .catch((error) => console.log(error.message));
-}
+// async function onDeletionProductFormSubmit(e) {
+//   e.preventDefault();
+//   const productId = e.target.deletionId.value;
+//   await deleteProductById(productId)
+//     .then(({ data }) => {
+//       if (data.isDeleted === true) {
+//         alert(
+//           `Product ${data.title} was successfully deleted on ${data.deletedOn}`
+//         );
+//       }
+//     })
+//     .catch((error) => console.log(error.message));
+// }
+
+// const allUsersEl = document.querySelector("#allUsers");
+
+// async function renderUsers() {
+//   const markup = await getAllUsers().then(({ data }) =>
+//     data.users
+//       .map(
+//         (user) => `<li>
+//           <p><b>User ID:</b> ${user.id}</p>
+//           <p><b>First Name:</b> ${user.firstName}</p>
+//           <p><b>Last Name:</b> ${user.lastName}</p>
+//           <p><b>Username:</b> ${user.username}</p>
+//           <p><b>email:</b> ${user.email}</p>
+//         </li>`
+//       )
+//       .join("")
+//   );
+//   allUsersEl.innerHTML = markup;
+// }
+
+// renderUsers();
