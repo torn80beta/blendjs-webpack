@@ -9,6 +9,7 @@ import {
 } from "./requests/products";
 import { getAllUsers } from "./requests/users";
 
+/* Task 1 */
 // const allProductsEl = document.querySelector("#allProducts");
 
 // async function createMarkup() {
@@ -27,6 +28,8 @@ import { getAllUsers } from "./requests/users";
 // }
 
 // createMarkup();
+
+/* Task 2 */
 
 // const singleProductCard = document.querySelector('#singleProduct');
 // const singleProductForm = document.querySelector('#singleProductForm');
@@ -52,6 +55,8 @@ import { getAllUsers } from "./requests/users";
 //   singleProductCard.innerHTML = markup;
 // }
 
+/* Task 3 */
+
 // const newProductFormEl = document.querySelector('#newProductForm');
 // const newProductSectionEl = document.querySelector('#newProductSection');
 // newProductFormEl.addEventListener('submit', addNewProduct);
@@ -74,6 +79,8 @@ import { getAllUsers } from "./requests/users";
 //   e.target.reset();
 // }
 
+/* Task 4 */
+
 // const deletionProductFormEl = document.querySelector("#deletionProductForm");
 // deletionProductFormEl.addEventListener("submit", onDeletionProductFormSubmit);
 
@@ -90,6 +97,8 @@ import { getAllUsers } from "./requests/users";
 //     })
 //     .catch((error) => console.log(error.message));
 // }
+
+/* Task 5 */
 
 // const allUsersEl = document.querySelector("#allUsers");
 
@@ -111,3 +120,5 @@ import { getAllUsers } from "./requests/users";
 // }
 
 // renderUsers();
+
+/* Task 6 */
