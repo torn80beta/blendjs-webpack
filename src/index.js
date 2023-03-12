@@ -7,7 +7,7 @@ import {
   addProduct,
   deleteProductById,
 } from "./requests/products";
-import { getAllUsers } from "./requests/users";
+import { getAllUsers, getUsersByName } from "./requests/users";
 
 /* Task 1 */
 // const allProductsEl = document.querySelector("#allProducts");
@@ -122,3 +122,32 @@ import { getAllUsers } from "./requests/users";
 // renderUsers();
 
 /* Task 6 */
+
+// const userByNameFormEl = document.querySelector("#userByNameForm");
+// const usersByNameEl = document.querySelector("#usersByName");
+// userByNameFormEl.addEventListener("submit", onUserByNameFormSubmit);
+
+// function createUsersMarkup(data) {
+//   const markup = data
+//     .map(
+//       (element) => `<li>
+//           <p><b>User ID:</b> ${element.id}</p>
+//           <p><b>First Name:</b> ${element.firstName}</p>
+//           <p><b>Maiden Name:</b> ${element.maidenName}</p>
+//           <p><b>Last Name:</b> ${element.lastName}</p>
+//           <p><b>Username:</b> ${element.username}</p>
+//           <p><b>email:</b> ${element.email}</p>
+//         </li>`
+//     )
+//     .join("");
+//   return markup;
+// }
+
+// async function onUserByNameFormSubmit(e) {
+//   e.preventDefault();
+//   const userName = e.target.name.value.trim();
+//   const users = await getUsersByName(userName).then(({ data }) => data.users);
+//   usersByNameEl.innerHTML = createUsersMarkup(users);
+// }
+
+/* Task 7 */
