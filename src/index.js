@@ -7,7 +7,11 @@ import {
   addProduct,
   deleteProductById,
 } from "./requests/products";
-import { getAllUsers, getUsersByName } from "./requests/users";
+import {
+  getAllUsers,
+  getUsersByName,
+  getCartsByUserId,
+} from "./requests/users";
 
 /* Task 1 */
 // const allProductsEl = document.querySelector("#allProducts");
@@ -151,3 +155,61 @@ import { getAllUsers, getUsersByName } from "./requests/users";
 // }
 
 /* Task 7 */
+
+const userCartsFormEl = document.querySelector("#userCartsForm");
+const cartsEl = document.querySelector("#carts");
+
+userCartsFormEl.addEventListener("submit", onUserCartsFormSubmit);
+
+async function onUserCartsFormSubmit(e) {
+  e.preventDefault();
+  const userId = e.target.userId.value;
+  let carts;
+  try {
+    carts = await getCartsByUserId(userId).then(({ data }) => data.carts);
+  } catch (error) {
+    console.log(error.message);
+    return;
+  }
+  if (carts.length === 0) {
+    console.log("There are no products in this user's cart");
+    return;
+  }
+  cartsEl.innerHTML = createCartMarkup(carts);
+}
+
+function createCartMarkup(carts) {
+  const markup = carts
+    .map(
+      (cart) => `<li>
+          <p><b>Cart ID:</b> ${cart.id}</p>
+          <p><b>Products in cart:</b> ${cart.totalProducts}</p>
+          <p><b>Total Price:</b> ${cart.total}</p>
+          <p><b>Discounted Total:</b> ${cart.discountedTotal}</p>
+          <p><b>Products:</b></p>
+            <ul class="products">
+            ${createProductMarkup(cart.products)}
+            </ul>
+         </li>`
+    )
+    .join("");
+  return markup;
+}
+
+function createProductMarkup(products) {
+  const markup = products
+    .map(
+      (product) =>
+        `<li>
+          <p><b>Product ID:</b> ${product.id}</p>
+          <p><b>Product Title:</b> ${product.title}</p>
+          <p><b>Quantity:</b> ${product.quantity}</p>
+          <p><b>Price:</b> ${product.price}</p>
+          <p><b>Discount Percentage:</b> ${product.discountPercentage}</p>
+          <p><b>Total Price:</b> ${product.total}</p>
+          <p><b>Discounted Total:</b> ${product.discountedPrice}</p>
+        </li>`
+    )
+    .join("");
+  return markup;
+}

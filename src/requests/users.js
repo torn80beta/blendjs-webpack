@@ -9,3 +9,8 @@ export async function getUsersByName(name) {
   const users = await instance.get(`/users/search?q=${name}`);
   return users;
 }
+
+export async function getCartsByUserId(id) {
+  const carts = await instance.get(`/carts/user/${id}`);
+  return carts;
+}
