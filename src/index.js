@@ -2,7 +2,7 @@ import './styles/normalize.css';
 import './styles/index.css';
 import './requests/products';
 import { getProducts, getProductsById, addProduct, deleteProductById } from './requests/products';
-import { getAllUsers, getUsersByName, getCartsByUserId } from './requests/users';
+import { getAllUsers, getUsersByName, getCartsByUserId, addNewUser } from './requests/users';
 import { getPostsById } from './requests/posts';
 
 /* Task 1 */
@@ -208,28 +208,51 @@ import { getPostsById } from './requests/posts';
 
 /* Task 8 */
 
-const userPostsFormEl = document.querySelector('#userPostsForm');
-const postsEl = document.querySelector('#posts');
+// const userPostsFormEl = document.querySelector('#userPostsForm');
+// const postsEl = document.querySelector('#posts');
 
-userPostsFormEl.addEventListener('submit', onUserPostsFormSubmit);
+// userPostsFormEl.addEventListener('submit', onUserPostsFormSubmit);
 
-async function onUserPostsFormSubmit(e) {
-  e.preventDefault();
-  const userId = e.target.userId.value;
-  const posts = await getPostsById(userId).then(res => res.data.posts);
-  postsEl.innerHTML = createPostsMarkUp(posts);
-}
+// async function onUserPostsFormSubmit(e) {
+//   e.preventDefault();
+//   const userId = e.target.userId.value;
+//   const posts = await getPostsById(userId).then(res => res.data.posts);
+//   postsEl.innerHTML = createPostsMarkUp(posts);
+// }
 
-function createPostsMarkUp(data) {
-  const markup = data
-    .map(
-      post => `<li><b>Post ID: </b>${post.id}</li>
-      <li><b>Post Title: </b>${post.title}</li>
-      <li><b>Post: </b>${post.body}</li>
-      <li><b>Post Tags: </b>${post.tags}</li>
-      <li><b>Reactions: </b>${post.reactions}</li>
-      </br>`
-    )
-    .join('');
-  return markup;
-}
+// function createPostsMarkUp(data) {
+//   const markup = data
+//     .map(
+//       post => `<li><b>Post ID: </b>${post.id}</li>
+//       <li><b>Post Title: </b>${post.title}</li>
+//       <li><b>Post: </b>${post.body}</li>
+//       <li><b>Post Tags: </b>${post.tags}</li>
+//       <li><b>Reactions: </b>${post.reactions}</li>
+//       </br>`
+//     )
+//     .join('');
+//   return markup;
+// }
+
+/* Task 9 */
+
+// const userCreationFormEl = document.querySelector('#userCreationForm');
+// userCreationFormEl.addEventListener('submit', onUserCreationFormSubmit);
+
+// async function onUserCreationFormSubmit(e) {
+//   e.preventDefault();
+//   const userData = {
+//     firstName: e.target.firstName.value,
+//     lastName: e.target.lastName.value,
+//     email: e.target.email.value,
+//     password: e.target.password.value,
+//   };
+
+//   const newUser = await addNewUser(userData).then(user => user);
+
+//   if (newUser.status === 200) {
+//     console.log('New user was successfully created!');
+//   } else {
+//     console.error('Ooops, something went wrong :(');
+//   }
+// }
