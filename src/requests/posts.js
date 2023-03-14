@@ -17,3 +17,12 @@ export async function searchPostsByKeyWord(query) {
     console.log(error.message);
   }
 }
+
+export async function getAllPosts() {
+  try {
+    const allPosts = await instance.get('/posts');
+    return allPosts;
+  } catch (error) {
+    console.log(error);
+  }
+}
