@@ -8,3 +8,12 @@ export async function getPostsById(userId) {
     console.log(error.message);
   }
 }
+
+export async function searchPostsByKeyWord(query) {
+  try {
+    const posts = await instance.get(`/posts/search?q=${query}`);
+    return posts;
+  } catch (error) {
+    console.log(error.message);
+  }
+}

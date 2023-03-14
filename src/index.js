@@ -3,7 +3,7 @@ import './styles/index.css';
 import './requests/products';
 import { getProducts, getProductsById, addProduct, deleteProductById } from './requests/products';
 import { getAllUsers, getUsersByName, getCartsByUserId, addNewUser } from './requests/users';
-import { getPostsById } from './requests/posts';
+import { getPostsById, searchPostsByKeyWord } from './requests/posts';
 
 /* Task 1 */
 // const allProductsEl = document.querySelector("#allProducts");
@@ -256,3 +256,40 @@ import { getPostsById } from './requests/posts';
 //     console.error('Ooops, something went wrong :(');
 //   }
 // }
+
+/* Task 10 */
+
+// const filteredPostsFormEl = document.querySelector('#filteredPostsForm');
+// const filteredPostsEl = document.querySelector('#filteredPosts');
+// filteredPostsFormEl.addEventListener('submit', onFilteredPostsFormElSubmit);
+
+// async function onFilteredPostsFormElSubmit(e) {
+//   e.preventDefault();
+//   const searchQuery = e.target.keyword.value;
+//   console.log(searchQuery);
+//   const data = await searchPostsByKeyWord(searchQuery).then(posts => {
+//     return posts.data.posts;
+//   });
+//   if (data.length === 0) {
+//     console.log(`There is no posts with "${searchQuery}" in it's body!`);
+//   }
+//   filteredPostsEl.innerHTML = postsMarkUpCreator(data);
+// }
+
+// function postsMarkUpCreator(data) {
+//   const markup = data
+//     .map(
+//       post => `
+//       <li><b>User ID: </b>${post.userId}</li>
+//       <li><b>Post ID: </b>${post.id}</li>
+//       <li><b>Post Title: </b>${post.title}</li>
+//       <li><b>Post: </b>${post.body}</li>
+//       <li><b>Post Tags: </b>${post.tags}</li>
+//       <li><b>Reactions: </b>${post.reactions}</li>
+//       </br>`
+//     )
+//     .join('');
+//   return markup;
+// }
+
+/* Task 11 */
