@@ -3,7 +3,7 @@ import './styles/index.css';
 import './requests/products';
 import { getProducts, getProductsById, addProduct, deleteProductById } from './requests/products';
 import { getAllUsers, getUsersByName, getCartsByUserId, addNewUser } from './requests/users';
-import { getPostsById, searchPostsByKeyWord, getAllPosts } from './requests/posts';
+import { getPostsById, searchPostsByKeyWord, getAllPosts, updatePost } from './requests/posts';
 
 /* Task 1 */
 // const allProductsEl = document.querySelector("#allProducts");
@@ -308,13 +308,31 @@ async function onLoad() {
   });
 }
 
-function onPostEdit(e) {
+async function onPostEdit(e) {
   e.preventDefault();
   const editPostInputEl = e.target.editPost;
-  const postBody = e.target.querySelector('#postBody').textContent;
-  editPostInputEl.value = postBody;
-  editPostInputEl.style.display = 'block';
-  e.target.querySelector('#editPostButton').textContent = 'Save';
+  const postBody = e.target.querySelector('#postBody');
+  const editPostButton = e.target.querySelector('#editPostButton');
+  const postId = e.target.querySelector('#postId').textContent;
+  if (editPostButton.textContent != 'Save') {
+    editPostInputEl.value = postBody.textContent;
+    editPostInputEl.style.display = 'block';
+    editPostButton.textContent = 'Save';
+  } else {
+    const newPost = editPostInputEl.value;
+    const response = await updatePost(postId, newPost).then(res => {
+      if (res.status === 200) {
+        return res.data.body;
+      } else {
+        console.log('Oooops... something go wrong!');
+        return;
+      }
+    });
+    editPostButton.textContent = 'Edit Post';
+    editPostInputEl.style.display = 'none';
+    postBody.textContent = response;
+    console.log('Post was successfully updated!');
+  }
 }
 
 function renderPosts(data) {
@@ -324,9 +342,9 @@ function renderPosts(data) {
       <li>
         <form id="postForm">
             <p><b>User ID: </b>${post.userId}</p>
-            <p><b>Post ID: </b>${post.id}</p>
+            <b>Post ID: </b><span id="postId" name="postId">${post.id}</span>
             <p><b>Post Title: </b>${post.title}</p>
-            <p id="postBody" name="postBody"><b>Post: </b>${post.body}</p>
+            <b>Post: </b><span id="postBody" name="postBody">${post.body}</span>
             <p><b>Post Tags: </b>${post.tags}</p>
             <p><b>Reactions: </b>${post.reactions}</p>
             <textarea  style="display: none; width: 40%; height: 200px" cols="40" rows="5" id="editPostInput" type="text" name="editPost"></textarea>

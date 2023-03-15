@@ -26,3 +26,15 @@ export async function getAllPosts() {
     console.log(error);
   }
 }
+
+export async function updatePost(postId, body) {
+  try {
+    const updatedPost = await instance.patch(`/posts/${postId}`, {
+      headers: { 'Content-Type': 'application/json' },
+      body: body,
+    });
+    return updatedPost;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
