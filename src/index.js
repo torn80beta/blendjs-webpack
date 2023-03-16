@@ -1,9 +1,45 @@
-import './styles/normalize.css';
-import './styles/index.css';
-import './requests/products';
-import { getProducts, getProductsById, addProduct, deleteProductById } from './requests/products';
-import { getAllUsers, getUsersByName, getCartsByUserId, addNewUser } from './requests/users';
-import { getPostsById, searchPostsByKeyWord, getAllPosts, updatePost } from './requests/posts';
+import "./styles/normalize.css";
+import "./styles/index.css";
+import "./requests/products";
+import {
+  getProducts,
+  getProductsById,
+  addProduct,
+  deleteProductById,
+} from "./requests/products";
+import {
+  getAllUsers,
+  getUsersByName,
+  getCartsByUserId,
+  addNewUser,
+} from "./requests/users";
+import {
+  getPostsById,
+  searchPostsByKeyWord,
+  getAllPosts,
+  updatePost,
+} from "./requests/posts";
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBSt5AK9ankO22Qk0ytWWjzBr4utQCOgH8",
+  authDomain: "fir-test-4ec8b.firebaseapp.com",
+  projectId: "fir-test-4ec8b",
+  storageBucket: "fir-test-4ec8b.appspot.com",
+  messagingSenderId: "941413940221",
+  appId: "1:941413940221:web:19b2f749a8bacf86113794",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
 
 /* Task 1 */
 // const allProductsEl = document.querySelector("#allProducts");
@@ -294,65 +330,65 @@ import { getPostsById, searchPostsByKeyWord, getAllPosts, updatePost } from './r
 
 /* Task 11 */
 
-const allPostsEl = document.getElementById('allPosts');
+// const allPostsEl = document.getElementById('allPosts');
 
-onLoad();
+// onLoad();
 
-async function onLoad() {
-  const allPosts = await getAllPosts().then(data => data.data.posts);
-  const markup = renderPosts(allPosts);
-  allPostsEl.innerHTML = markup;
-  const postFormElements = document.querySelectorAll('#postForm');
-  postFormElements.forEach(element => {
-    element.addEventListener('submit', onPostEdit);
-  });
-}
+// async function onLoad() {
+//   const allPosts = await getAllPosts().then(data => data.data.posts);
+//   const markup = renderPosts(allPosts);
+//   allPostsEl.innerHTML = markup;
+//   const postFormElements = document.querySelectorAll('#postForm');
+//   postFormElements.forEach(element => {
+//     element.addEventListener('submit', onPostEdit);
+//   });
+// }
 
-async function onPostEdit(e) {
-  e.preventDefault();
-  const editPostInputEl = e.target.editPost;
-  const postBody = e.target.querySelector('#postBody');
-  const editPostButton = e.target.querySelector('#editPostButton');
-  const postId = e.target.querySelector('#postId').textContent;
-  if (editPostButton.textContent != 'Save') {
-    editPostInputEl.value = postBody.textContent;
-    editPostInputEl.style.display = 'block';
-    editPostButton.textContent = 'Save';
-  } else {
-    const newPost = editPostInputEl.value;
-    const response = await updatePost(postId, newPost).then(res => {
-      if (res.status === 200) {
-        return res.data.body;
-      } else {
-        console.log('Oooops... something go wrong!');
-        return;
-      }
-    });
-    editPostButton.textContent = 'Edit Post';
-    editPostInputEl.style.display = 'none';
-    postBody.textContent = response;
-    console.log('Post was successfully updated!');
-  }
-}
+// async function onPostEdit(e) {
+//   e.preventDefault();
+//   const editPostInputEl = e.target.editPost;
+//   const postBody = e.target.querySelector('#postBody');
+//   const editPostButton = e.target.querySelector('#editPostButton');
+//   const postId = e.target.querySelector('#postId').textContent;
+//   if (editPostButton.textContent != 'Save') {
+//     editPostInputEl.value = postBody.textContent;
+//     editPostInputEl.style.display = 'block';
+//     editPostButton.textContent = 'Save';
+//   } else {
+//     const newPost = editPostInputEl.value;
+//     const response = await updatePost(postId, newPost).then(res => {
+//       if (res.status === 200) {
+//         return res.data.body;
+//       } else {
+//         console.log('Oooops... something go wrong!');
+//         return;
+//       }
+//     });
+//     editPostButton.textContent = 'Edit Post';
+//     editPostInputEl.style.display = 'none';
+//     postBody.textContent = response;
+//     console.log('Post was successfully updated!');
+//   }
+// }
 
-function renderPosts(data) {
-  const markup = data
-    .map(
-      post => `
-      <li>
-        <form id="postForm">
-            <p><b>User ID: </b>${post.userId}</p>
-            <b>Post ID: </b><span id="postId" name="postId">${post.id}</span>
-            <p><b>Post Title: </b>${post.title}</p>
-            <b>Post: </b><span id="postBody" name="postBody">${post.body}</span>
-            <p><b>Post Tags: </b>${post.tags}</p>
-            <p><b>Reactions: </b>${post.reactions}</p>
-            <textarea  style="display: none; width: 40%; height: 200px" cols="40" rows="5" id="editPostInput" type="text" name="editPost"></textarea>
-            <button id="editPostButton" type="submit">Edit Post</button>
-        </form>
-        </br>
-      </li>`
-    )
-    .join('');
-  return markup;
-}
+// function renderPosts(data) {
+//   const markup = data
+//     .map(
+//       post => `
+//       <li>
+//         <form id="postForm">
+//             <p><b>User ID: </b>${post.userId}</p>
+//             <b>Post ID: </b><span id="postId" name="postId">${post.id}</span>
+//             <p><b>Post Title: </b>${post.title}</p>
+//             <b>Post: </b><span id="postBody" name="postBody">${post.body}</span>
+//             <p><b>Post Tags: </b>${post.tags}</p>
+//             <p><b>Reactions: </b>${post.reactions}</p>
+//             <textarea  style="display: none; width: 40%; height: 200px" cols="40" rows="5" id="editPostInput" type="text" name="editPost"></textarea>
+//             <button id="editPostButton" type="submit">Edit Post</button>
+//         </form>
+//         </br>
+//       </li>`
+//     )
+//     .join('');
+//   return markup;
+// }
